@@ -1,17 +1,29 @@
-import { StyleSheet, Text, View } from 'react-native'
-import React from 'react'
-import { Link } from 'expo-router'
+import { StyleSheet, Text, View } from "react-native";
+import React, { useState } from "react";
+import { Link, Stack } from "expo-router";
+import ExploreHeader from "@/components/ExploreHeader";
+import Listing from "@/components/Listing";
 
 const Page = () => {
-  return (
-    <View>
-      <Link href={"/(modals)/login"}><Text>Login</Text></Link>
-      <Link href={"/(modals)/booking"}><Text>Booking</Text></Link>
-      <Link href={"/listing/123"}><Text>listing</Text></Link>
-    </View>
-  )
-}
+    const [category, setCategory] = useState("Tiny homes");
+    const onDataChange = (category: string) => {
+        console.log("changed", category);
+        setCategory(category)
+    };
+    return (
+        <View style={{ flex: 1, marginTop: 130 }}>
+            <Stack.Screen
+                options={{
+                    header: () => (
+                        <ExploreHeader onCategoryChanged={onDataChange} />
+                    ),
+                }}
+            />
+            <Listing listings={[]} category={category}/>
+        </View>
+    );
+};
 
-export default Page
+export default Page;
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({});
